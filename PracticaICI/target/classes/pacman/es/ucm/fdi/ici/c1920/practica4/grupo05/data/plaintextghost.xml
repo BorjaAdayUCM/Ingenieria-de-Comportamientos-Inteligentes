@@ -1,0 +1,24 @@
+<TextFileConfiguration>
+		<FilePath>src/main/java/pacman/es/ucm/fdi/ici/c1920/practica4/grupo05/data/ghosts_data.txt</FilePath>
+        <Delimiters>,</Delimiters>
+        <DescriptionClassName>pacman.es.ucm.fdi.ici.c1920.practica4.grupo05.GhostsDescription</DescriptionClassName>
+      	<DescriptionMappings>
+	      <Map>ghost</Map>
+	      <Map>currentGToPacDistance</Map>
+	      <Map>ghost1ToPacDistance</Map>
+	      <Map>ghost2ToPacDistance</Map>
+	      <Map>ghost3ToPacDistance</Map>
+	      <Map>edibleGhosts</Map>
+	      <Map>pacToClosestActivePPDistance</Map>
+	      <Map>activePP</Map>
+	      <Map>isGhostEdible</Map>
+	      <Map>lastMove</Map>
+     	 </DescriptionMappings>
+  		<SolutionClassName>pacman.es.ucm.fdi.ici.c1920.practica4.grupo05.GhostsSolutions</SolutionClassName>
+      	<SolutionMappings>
+   			<Map>id</Map>
+	   	 	<Map>solution</Map>
+	     	<Map>successProb</Map>
+   		</SolutionMappings>
+</TextFileConfiguration>
+

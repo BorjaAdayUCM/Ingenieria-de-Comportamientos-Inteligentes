@@ -1,0 +1,46 @@
+FUNCTION_BLOCK FuzzyGhosts	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	PACMANdistance : REAL;
+	PACMANdistanceToPPill: REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	chasePac : REAL;
+END_VAR
+
+
+FUZZIFY PACMANdistance			
+	TERM near := (0, 1) (50, 1) (100,0);
+	TERM medium := (50, 0) (100,1) (150,0);
+	TERM far := (100,0) (150,1) (200, 1) ; 
+END_FUZZIFY
+
+FUZZIFY PACMANdistanceToPPill
+	TERM dangerous := (0,1) (40,1) (80,0);
+	TERM safe := (40,0) (80,1) (200,1);
+END_FUZZIFY
+
+DEFUZZIFY chasePac			
+	TERM go := (0,1) (5,1) (20,0);
+	TERM maybe :=  gauss 20 5;
+	TERM no := (20,0) (25,1) (30,1);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+	RANGE := (0.0 .. 30.0);
+END_DEFUZZIFY
+
+RULEBLOCK GhostsRules
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'MAX' accumulation method (Other options PROBOR and SUM)
+
+	RULE 1 : IF PACMANdistance IS near AND PACMANdistanceToPPill IS dangerous THEN chasePac IS no;
+	RULE 2 : IF PACMANdistance IS near AND PACMANdistanceToPPill IS safe THEN chasePac IS go;
+	RULE 3 : IF PACMANdistance IS medium THEN chasePac IS maybe;
+	RULE 4 : IF PACMANdistance IS far THEN chasePac IS no;
+
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
